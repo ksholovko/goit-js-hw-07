@@ -34,16 +34,27 @@ function onGalleryItemClick(event) {
     return;
   }
 
-  console.log(event.target.dataset.source);
+  // if (event.target.nodeName !== "IMG") {
+  //   return;
+  // }
 
   const imageToShow = event.target.dataset.source;
 
-  const instance = basicLightbox.create(`
-    <img src="${imageToShow}" width="800" height="600">
-`)
+  const instance = basicLightbox.create(`<img src="${imageToShow}" width="800" height="600">`)
 
-instance.show()
+  instance.show()
+  
+  window.document.addEventListener('keydown', onEscClick);
 
+  function onEscClick(event) {
+    if (event.code !== 'Escape') {
+      return; 
+    }
+    
+    instance.close();
+
+    window.document.removeEventListener('keydown', onEscClick)
+}
 }
     
     
